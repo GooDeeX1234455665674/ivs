@@ -1,0 +1,12 @@
+gen(X) :- between(-100, 100, X).
+
+solve_naive(X, Y) :-
+    gen(X), gen(Y),
+    4*X + 5*Y =:= 0.
+
+solve_opt(X, Y) :-
+    gen(X),
+    Temp is -4 * X,
+    Temp mod 5 =:= 0,
+    Y is Temp div 5,
+    Y >= -100, Y =< 100.
