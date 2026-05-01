@@ -1,0 +1,36 @@
+:- dynamic dish/4.
+:- dynamic menu/2.
+
+init_db :-
+    retractall(dish(_,_,_,_)), retractall(menu(_,_)),
+    assertz(dish(1, 'Борщ', 'Суп', 300)),
+    assertz(dish(2, 'Цезарь', 'Салат', 450)),
+    assertz(menu('Дневное', 1)),
+    assertz(menu('Вечернее', 2)),
+    write('>>> База загружена'), nl.
+
+main :-
+    repeat,
+    nl, write('=== БАЗА ДАННЫХ: РЕСТОРАН ==='), nl,
+    write('1. Загрузить БД'), nl,
+    write('2. Показать меню'), nl,
+    write('3. Добавить блюдо'), nl,
+    write('4. Удалить блюдо'), nl,
+    write('0. Выход'), nl,
+    write('Выбор: '), read(C), action(C), C == 0, !.
+
+action(1) :- init_db, !.
+action(2) :- 
+    dish(ID, Name, Cat, Price),
+    write('ID: '), write(ID), write(' | '), write(Name), 
+    write(' | '), write(Cat), write(' | '), write(Price), write(' руб.'), nl, fail.
+action(2) :- !.
+action(3) :-
+    write('ID: '), read(ID), write('Название: '), read(Name),
+    assertz(dish(ID, Name, 'Новое', 500)), write('Добавлено!'), nl, !.
+action(4) :-
+    write('ID для удаления: '), read(ID),
+    retract(dish(ID, _, _, _)), retractall(menu(_, ID)),
+    write('Удалено!'), nl, !.
+action(0) :- write('Выход'), nl, !.
+action(_) :- write('Ошибка ввода.'), nl, !.
