@@ -1,0 +1,11 @@
+male(ivan). male(peter). male(alex).
+female(maria). female(anna). female(olga).
+
+parent(ivan, peter). parent(maria, peter).
+parent(ivan, anna). parent(maria, anna).
+parent(peter, alex).
+
+father(F, C) :- parent(F, C), male(F).
+mother(M, C) :- parent(M, C), female(M).
+son(S, P) :- parent(P, S), male(S).
+daughter(D, P) :- parent(P, D), female(D).
