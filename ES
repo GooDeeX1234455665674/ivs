@@ -1,0 +1,36 @@
+(defrule start
+  =>
+  (printout t "Любишь экшен? (yes/no): ")
+  (assert (action (read))))
+
+(defrule action-yes
+  (action yes)
+  =>
+  (printout t "Играешь по сети? (yes/no): ")
+  (assert (multi (read))))
+
+(defrule action-no
+  (action no)
+  =>
+  (printout t "Любишь строить? (yes/no): ")
+  (assert (build (read))))
+
+(defrule shooter-multi
+  (multi yes)
+  =>
+  (printout t "СОВЕТ: CS:GO или Valorant" crlf))
+
+(defrule shooter-solo
+  (multi no)
+  =>
+  (printout t "СОВЕТ: DOOM Eternal" crlf))
+
+(defrule strategy
+  (build yes)
+  =>
+  (printout t "СОВЕТ: Cities: Skylines" crlf))
+
+(defrule rpg
+  (build no)
+  =>
+  (printout t "СОВЕТ: The Witcher 3" crlf))
