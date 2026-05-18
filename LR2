@@ -1,4 +1,14 @@
-list_length([], 0).
-list_length([_ | Tail], N) :-
-    list_length(Tail, N1),
-    N is N1 + 1.
+% Вариант 5
+duplicate([], []).
+duplicate([H|T], [H, H | ResultTail]) :- 
+    duplicate(T, ResultTail).
+
+% Вариант 13
+replace(_, _, [], []).
+
+replace(Old, New, [Old|T], [New|R]) :- 
+    replace(Old, New, T, R).
+
+replace(Old, New, [H|T], [H|R]) :- 
+    Old \= H, 
+    replace(Old, New, T, R).
